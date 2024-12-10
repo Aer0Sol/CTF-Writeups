@@ -16,9 +16,9 @@ nc chall.polygl0ts.ch 9024
 
 ## Source files
 
-[server.py](./server.py) \
-[Dockerfile](./Dockerfile) \
-[compose.yaml](./compose.yaml)
+[cert.py](./cert.py) \
+[precomputed.py](./precomputed.py) \
+
 
 
 ## Source Analysis
