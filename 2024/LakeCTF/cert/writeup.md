@@ -61,20 +61,22 @@ if __name__ == "__main__":
 We are given a message m, e, N and a signature in precomputed.py and cert.py checks if the signature of "admin" is sent to the server, if yes, the flag is printed.
 
 Interestingly:
-$$m \not\equiv s^e \bmod N$$
+
+![image](https://github.com/user-attachments/assets/a10f63c7-02eb-4aa4-aa93-a1bf94fa603c)
+
 It is not clear for which message this is intended for but since nothing else is provided, it is safe to assume that this is most likely a **faulty signature**.
 
 ### Theory
 
 In the case without fault:
-$$\begin{aligned} m^d &\equiv s \pmod{N}, \\ s^e &\equiv m \pmod{N} \end{aligned}$$In the case of RSA-CRT fault attack:
 
-$$
-\begin{aligned} &\text{Let's assume faulty signature to be} \ \bar{s}. \\ \\
-&\begin{cases} \bar{s}^e = m \pmod{p} \\ \bar{s}^e \neq m \pmod{q} \end{cases} \implies \begin{cases} \bar{s}^e - m = 0 \pmod{p} \\ \bar{s}^e - m \neq 0 \pmod{q} \end{cases} \implies \begin{cases} (\bar{s}^e - m)= kp \\ (\bar{s}^e - m) \not= kq \end{cases} \end{aligned}
-$$
+![image](https://github.com/user-attachments/assets/5629916e-b7d1-4587-8546-8529cc6293eb)
 
-This is good for us as we can simply do $GCD(s^e - m, N)$  and that will give us $p$. And with that factorising N becomes trivial.
+In the case of RSA-CRT fault attack:
+
+![image](https://github.com/user-attachments/assets/28c3e652-667e-4c5e-b6b6-060902b911ea)
+
+This is good for us as we can simply do GCD(s^e - m, N)  and that will give us p. And with that factorising N becomes trivial.
 
 ## Solve script
 
