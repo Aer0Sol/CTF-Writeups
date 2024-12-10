@@ -17,8 +17,7 @@ nc chall.polygl0ts.ch 9024
 ## Source files
 
 [cert.py](./cert.py) \
-[precomputed.py](./precomputed.py) \
-
+[precomputed.py](./precomputed.py) 
 
 
 ## Source Analysis
