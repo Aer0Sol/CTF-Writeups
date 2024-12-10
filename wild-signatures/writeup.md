@@ -7,8 +7,8 @@ nc chall.polygl0ts.ch 9001
 
 ## Source files
 
-[server.py](./server.py)
-[Dockerfile](./Dockerfile)
+[server.py](./server.py) \
+[Dockerfile](./Dockerfile) \
 [compose.yaml](./compose.yaml)
 
 
