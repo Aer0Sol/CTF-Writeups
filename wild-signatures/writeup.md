@@ -98,11 +98,16 @@ Contrary to what the challenge requires you to send, that is, the entire pubkey,
     to_verif = user_msg + sig[len(user_msg):]
 ```
 
-we can just send part of the pubkey and the remaining will be considered from the pre-existing signature. So to make life easier and to pass the verification check from ` parse_and_vfy_sig()` more often, we can send just a *single byte* to the server and check if it passes the verification check, if not, we close the connection and open an another one and repeat this until the signature verifies.
-This is feasible as there is a 1/255 chance of us landing on the right byte.
+we can just send part of the pubkey and the remaining will be considered from the pre-existing signature. So to make life easier and to pass the verification check from `parse_and_vfy_sig()` more often, we can send just a *single byte* to the server and check if it passes the verification check, if not, we close the connection and open an another one and repeat this until the signature verifies.
 
-Note as the first 32 bytes of every signature is the same, once we hit the right byte, we send it 4 times to the server to pass the verification check fully to get the flag.
+This is feasible as there is a **1/255** chance of us landing on the right byte. \
+...so there will be a bit of waiting involved.
 
+Note as the first 32 bytes of every signature is the same, once we hit the right byte, we send it 4 times to the server to pass the verification check completely to get the flag.
+
+### Intended Solve?
+
+Apparently the intended solve required us to find points of low order on this curve but this too works, overall was an easy challenge.
 
 ## Solve script
 
