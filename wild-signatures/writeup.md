@@ -1,16 +1,16 @@
-### Challenge Description
+## Challenge Description
 
-> ```Can you even sign? Help leo get the flag as soon as possible.```
-> ```nc chall.polygl0ts.ch 9001```
+    ```Can you even sign? Help leo get the flag as soon as possible.```
+    ```nc chall.polygl0ts.ch 9001```
 
-### Source files
+## Source files
 
 > [server.py](./server.py)
 > [Dockerfile](./Dockerfile)
 > [compose.yaml](./compose.yaml)
 
 
-### Source Analysis
+## Source Analysis
 
 ```python
 #!/usr/bin/env python3
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
 From the source it is evident that there is EdDSA happening. I just went for the standard Cryptanalysis procedure on this one, that is, to just treat it as a Black-box and observe the outputs.
 
-#### Signature generation
+### Signature generation
 
 ```python
 sigs = [ leos_key.public_key().export_key(format='raw') + eddsa.new(leos_key, 'rfc8032').sign(msg) for msg in msgs]
@@ -88,7 +88,7 @@ Out[15]:
 ```
 
 
-#### main
+### Main
 
 Contrary to what the challenge requires you to send, that is, the entire pubkey, we can just send part of it as:
 
@@ -96,12 +96,13 @@ Contrary to what the challenge requires you to send, that is, the entire pubkey,
     to_verif = user_msg + sig[len(user_msg):]
 ```
 
-we can just send part of the pubkey and the remaining will be considered from the pre-existing signature. So to make life easier and to pass the verification check from ` parse_and_vfy_sig()` more often, we can send just a *single byte* to the server and check if it passes the verification check, if not, we close the connection and open an another one and repeat this until the signature verifies. This is feasible as there is a 1/255 chance of us landing on the right byte.
+we can just send part of the pubkey and the remaining will be considered from the pre-existing signature. So to make life easier and to pass the verification check from ` parse_and_vfy_sig()` more often, we can send just a *single byte* to the server and check if it passes the verification check, if not, we close the connection and open an another one and repeat this until the signature verifies.
+This is feasible as there is a 1/255 chance of us landing on the right byte.
 
-Note as the first 32 bytes of the every signature is the same, once we hit the right byte, we send it 4 times to the server to pass the verification check fully to get the flag.
+Note as the first 32 bytes of every signature is the same, once we hit the right byte, we send it 4 times to the server to pass the verification check fully to get the flag.
 
 
-### Solve script
+## Solve script
 
 ```python
 from pwn import *
